@@ -1,5 +1,9 @@
 package app.backend;
 
-public class Backend {
+public class Backend implements Runnable {
 
+    @Override
+    public void run() {
+
+    }
 }
