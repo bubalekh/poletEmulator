@@ -1,0 +1,22 @@
+{
+  "parameterList": [
+    {
+      "id": 0,
+      "type": "BASIC",
+      "label": "test",
+      "description": "test",
+      "address": 0,
+      "size": 0,
+      "value": 0
+    },
+    {
+      "id": 1,
+      "type": "ADVANCED",
+      "label": "test",
+      "description": "test",
+      "address": 1,
+      "size": 1,
+      "value": 1
+    }
+  ]
+}
