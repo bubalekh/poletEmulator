@@ -16,6 +16,5 @@ public class Backend implements Runnable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(parameters.getParameterList().get(0).getId());
     }
 }
