@@ -1,8 +1,8 @@
-package app.backend;
+package app.backend.models;
 
 public class Parameter {
 
-    public Parameter(int id, Type type, String label, String description, int address, int size, int value) {
+    public Parameter(int id, Type type, String label, String description, String address, String size, String value) {
         this.id = id;
         this.type = type;
         this.label = label;
@@ -16,15 +16,15 @@ public class Parameter {
     {
         BASIC,
         ADVANCED
-    };
+    }
 
     private int id;
     private Type type;
     private String label;
     private String description;
-    private int address;
-    private int size;
-    private int value;
+    private String address;
+    private String size;
+    private String value;
 
     public int getId() {
         return id;
@@ -58,37 +58,38 @@ public class Parameter {
         this.description = description;
     }
 
-    public int getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(int address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public int getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
-    public int getValue() {
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
 
     public Parameter() {
         this.id = 0;
         this.type = Type.BASIC;
         this.label = "";
         this.description = "";
-        this.address = 0;
-        this.size = 0;
-        this.value = 0;
+        this.address = "";
+        this.size = "";
+        this.value = "";
     }
 }

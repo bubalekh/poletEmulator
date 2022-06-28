@@ -1,7 +1,5 @@
 package app.backend.models;
 
-import app.backend.Parameter;
-
 import java.util.ArrayList;
 import java.util.List;
 

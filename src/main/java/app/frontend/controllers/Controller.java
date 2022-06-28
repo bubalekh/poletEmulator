@@ -1,14 +1,9 @@
 package app.frontend.controllers;
 
-import app.backend.Parameter;
-import app.backend.models.Parameters;
+import app.backend.models.Parameter;
 import app.backend.models.ParametersWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -16,16 +11,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
     private final List<Parameter> tableData = ParametersWrapper.getInstance().getParameterList();
+
     public Group root;
 
     @FXML
@@ -44,13 +38,13 @@ public class Controller implements Initializable {
     private TableColumn<Parameter, String> descriptionColumn;
 
     @FXML
-    private TableColumn<Parameter, Integer> addressColumn;
+    private TableColumn<Parameter, String> addressColumn;
 
     @FXML
-    private TableColumn<Parameter, Integer> sizeColumn;
+    private TableColumn<Parameter, String> sizeColumn;
 
     @FXML
-    private TableColumn<Parameter, Integer> valueColumn;
+    private TableColumn<Parameter, String> valueColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -58,38 +52,37 @@ public class Controller implements Initializable {
         typeColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("type"));
         labelColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("label"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("description"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("address"));
-        sizeColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("size"));
-        valueColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("value"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("address"));
+        sizeColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("size"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("value"));
 
-        //labelColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         sizeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        valueColumn.setCellValueFactory(TextFieldTableCell.forTableColumn());
+        valueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         System.out.println(addressColumn.isEditable());
 
         table.setItems(FXCollections.observableList(tableData));
         table.setEditable(true);
-        addressColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, Integer>>() {
+        addressColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Parameter, Integer> parameterIntegerCellEditEvent) {
-                parameterIntegerCellEditEvent.getRowValue().setAddress(parameterIntegerCellEditEvent.getNewValue());
-                System.out.println(addressColumn.getCellData(parameterIntegerCellEditEvent.getRowValue()));
+            public void handle(TableColumn.CellEditEvent<Parameter, String> parameterStringCellEditEvent) {
+                parameterStringCellEditEvent.getRowValue().setAddress(parameterStringCellEditEvent.getNewValue());
+                System.out.println(addressColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
             }
         });
-        sizeColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, Integer>>() {
+        sizeColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Parameter, Integer> parameterIntegerCellEditEvent) {
-                parameterIntegerCellEditEvent.getRowValue().setSize(parameterIntegerCellEditEvent.getNewValue());
-                System.out.println(sizeColumn.getCellData(parameterIntegerCellEditEvent.getRowValue()));
+            public void handle(TableColumn.CellEditEvent<Parameter, String> parameterStringCellEditEvent) {
+                parameterStringCellEditEvent.getRowValue().setSize(parameterStringCellEditEvent.getNewValue());
+                System.out.println(sizeColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
             }
         });
-        valueColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, Integer>>() {
+        valueColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Parameter, Integer> parameterIntegerCellEditEvent) {
-                parameterIntegerCellEditEvent.getRowValue().setValue(parameterIntegerCellEditEvent.getNewValue());
-                System.out.println(valueColumn.getCellData(parameterIntegerCellEditEvent.getRowValue()));
+            public void handle(TableColumn.CellEditEvent<Parameter, String> parameterStringCellEditEvent) {
+                parameterStringCellEditEvent.getRowValue().setValue(parameterStringCellEditEvent.getNewValue());
+                System.out.println(valueColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
             }
         });
     }
