@@ -1,17 +1,32 @@
 package app.frontend.controllers;
 
 import app.backend.Parameter;
+import app.backend.models.Parameters;
+import app.backend.models.ParametersWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import app.backend.models.Parameters;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 
-public class Controller {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-    private final ObservableList<Parameter> tableData = FXCollections.observableArrayList(Parameters::getParameterList());
+public class Controller implements Initializable {
+
+    private final List<Parameter> tableData = ParametersWrapper.getInstance().getParameterList();
+    public Group root;
 
     @FXML
     private TableView<Parameter> table;
@@ -37,20 +52,26 @@ public class Controller {
     @FXML
     private TableColumn<Parameter, Integer> valueColumn;
 
-    @FXML
-    private void initialize() {
-        initData();
-        idColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("ID"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("Тип"));
-        labelColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("Имя"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("Описание"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("Адрес"));
-        sizeColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("Размер"));
-        valueColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("Значение"));
-        table.setItems(tableData);
-    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        idColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("id"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("type"));
+        labelColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("label"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("description"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("address"));
+        sizeColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("size"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("value"));
+        labelColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        System.out.println(labelColumn.isEditable());
+        table.setItems(FXCollections.observableList(tableData));
+        table.setEditable(true);
 
-    private void initData() {
-
+        labelColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Parameter, String> parameterStringCellEditEvent) {
+                parameterStringCellEditEvent.getRowValue().setLabel(parameterStringCellEditEvent.getNewValue());
+                System.out.println(labelColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
+            }
+        });
     }
 }
