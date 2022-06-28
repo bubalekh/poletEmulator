@@ -61,16 +61,35 @@ public class Controller implements Initializable {
         addressColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("address"));
         sizeColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("size"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("value"));
-        labelColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        System.out.println(labelColumn.isEditable());
+
+        //labelColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        sizeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        valueColumn.setCellValueFactory(TextFieldTableCell.forTableColumn());
+
+        System.out.println(addressColumn.isEditable());
+
         table.setItems(FXCollections.observableList(tableData));
         table.setEditable(true);
-
-        labelColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, String>>() {
+        addressColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, Integer>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Parameter, String> parameterStringCellEditEvent) {
-                parameterStringCellEditEvent.getRowValue().setLabel(parameterStringCellEditEvent.getNewValue());
-                System.out.println(labelColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
+            public void handle(TableColumn.CellEditEvent<Parameter, Integer> parameterIntegerCellEditEvent) {
+                parameterIntegerCellEditEvent.getRowValue().setAddress(parameterIntegerCellEditEvent.getNewValue());
+                System.out.println(addressColumn.getCellData(parameterIntegerCellEditEvent.getRowValue()));
+            }
+        });
+        sizeColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Parameter, Integer> parameterIntegerCellEditEvent) {
+                parameterIntegerCellEditEvent.getRowValue().setSize(parameterIntegerCellEditEvent.getNewValue());
+                System.out.println(sizeColumn.getCellData(parameterIntegerCellEditEvent.getRowValue()));
+            }
+        });
+        valueColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Parameter, Integer> parameterIntegerCellEditEvent) {
+                parameterIntegerCellEditEvent.getRowValue().setValue(parameterIntegerCellEditEvent.getNewValue());
+                System.out.println(valueColumn.getCellData(parameterIntegerCellEditEvent.getRowValue()));
             }
         });
     }
