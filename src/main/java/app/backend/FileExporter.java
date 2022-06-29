@@ -16,7 +16,7 @@ public class FileExporter {
     public FileExporter() throws IOException {
     }
 
-    public void Test(List<Parameter> parameters) throws IOException {
+    public String Test(List<Parameter> parameters) throws IOException {
         parameters.forEach(parameter -> {
             if (Integer.parseInt(parameter.getSize()) <= 1) {
                 if (Integer.parseInt(parameter.getValue()) < 15) {
@@ -24,7 +24,13 @@ public class FileExporter {
                 }
             }
             else {
-                stringBuilder.append("0".repeat(Integer.parseInt(parameter.getSize()) * 2 - 1));
+                int hexPow = 0;
+                int tempValue = Integer.parseInt(parameter.getValue());
+                while(tempValue >= 16){
+                    tempValue /= 16;
+                    hexPow++;
+                }
+                stringBuilder.append("0".repeat(Integer.parseInt(parameter.getSize()) * 2 - (hexPow + 1)));
             }
             stringBuilder.append(Integer.toHexString(Integer.parseInt(parameter.getValue())));
         });
@@ -32,5 +38,7 @@ public class FileExporter {
         fileWriter.append(stringBuilder.toString());
         fileWriter.close();
         System.out.println("test");
+
+        return stringBuilder.toString();
     }
 }

@@ -7,7 +7,7 @@
       "description": "test",
       "address": 0,
       "size": 1,
-      "value": 20
+      "value": 6
     },
     {
       "id": 1,
@@ -15,8 +15,54 @@
       "label": "test",
       "description": "test",
       "address": 1,
+      "size": 1,
+      "value": 16
+    },
+    {
+      "id": 2,
+      "type": "ADVANCED",
+      "label": "test",
+      "description": "test",
+      "address": 2,
+      "size": 1,
+      "value": 35
+    },
+    {
+      "id": 3,
+      "type": "ADVANCED",
+      "label": "test",
+      "description": "test",
+      "address": 3,
       "size": 2,
-      "value": 20
+      "value": 15
+    },
+    {
+      "id": 4,
+      "type": "ADVANCED",
+      "label": "test",
+      "description": "test",
+      "address": 5,
+      "size": 2,
+      "value": 16
+    },
+    {
+      "id": 5,
+      "type": "ADVANCED",
+      "label": "test",
+      "description": "test",
+      "address": 7,
+      "size": 2,
+      "value": 384
+    },
+    {
+      "id": 6,
+      "type": "ADVANCED",
+      "label": "test",
+      "description": "test",
+      "address": 9,
+      "size": 5,
+      "value": 9834565
     }
+
   ]
 }
