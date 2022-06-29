@@ -10,6 +10,10 @@ import java.io.IOException;
 public class Backend implements Runnable {
 
     private Parameters parameters;
+    private FileExporter fileExporter = new FileExporter();
+
+    public Backend() throws IOException {
+    }
 
     @Override
     public void run() {
@@ -20,6 +24,11 @@ public class Backend implements Runnable {
             ParametersWrapper.getInstance().getParameterList().addAll(parameters.getParameterList());
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+        try {
+            fileExporter.Test(parameters.getParameterList());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

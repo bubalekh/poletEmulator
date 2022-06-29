@@ -7,14 +7,15 @@ public class ParametersWrapper {
 
     private ParametersWrapper() { };
 
-    public static Parameters INSTANCE = new Parameters();
+    private static final ParametersWrapper INSTANCE = new ParametersWrapper();
+
     private final List<Parameter> parameterList = new ArrayList<>();
 
     public List<Parameter> getParameterList() {
         return parameterList;
     }
 
-    public static Parameters getInstance() {
+    public static ParametersWrapper getInstance() {
         return INSTANCE;
     }
 }
