@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Backend implements Runnable {
 
     private Parameters parameters;
-    private FileExporter fileExporter = new FileExporter();
+    private final FileExporter fileExporter = new FileExporter();
 
     public Backend() throws IOException {
     }
@@ -21,7 +21,7 @@ public class Backend implements Runnable {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            parameters = mapper.readValue(new File("target/parameters.json"), Parameters.class);
+            parameters = mapper.readValue(new File("configs/parameters.json"), Parameters.class);
             ParametersWrapper.getInstance().getParameterList().addAll(parameters.getParameterList());
         } catch (IOException e) {
             throw new RuntimeException(e);
