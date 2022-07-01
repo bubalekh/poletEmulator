@@ -6,30 +6,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
-public class Backend implements Runnable {
+import static org.junit.jupiter.api.Assertions.*;
+
+class FileExporterTest {
 
     private Parameters parameters;
-    private final FileExporter fileExporter = new FileExporter();
 
-    public Backend() throws IOException {
-    }
+    @org.junit.jupiter.api.Test
+    void test() {
 
-    @Override
-    public void run() {
         ObjectMapper mapper = new ObjectMapper();
-
         try {
-            parameters = mapper.readValue(new File("configs/parameters.json"), Parameters.class);
+            parameters = mapper.readValue(new File("target/parameters.json"), Parameters.class);
             ParametersWrapper.getInstance().getParameterList().addAll(parameters.getParameterList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         try {
-            fileExporter.Test(parameters.getParameterList());
+            FileExporter fileExporter = new FileExporter();
+            String exportResultStr = fileExporter.Test(parameters.getParameterList());
+            assertEquals("061023000f001001800000961045", exportResultStr);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

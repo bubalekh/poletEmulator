@@ -7,11 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.Objects;
 
-
 public class Frontend extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         try {
             primaryStage.setTitle("Test");
             primaryStage.setMinHeight(450);
