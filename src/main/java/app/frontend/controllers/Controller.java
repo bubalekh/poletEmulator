@@ -3,7 +3,6 @@ package app.frontend.controllers;
 import app.backend.models.Parameter;
 import app.backend.models.ParametersWrapper;
 import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -48,13 +47,13 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        idColumn.setCellValueFactory(new PropertyValueFactory<Parameter, Integer>("id"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("type"));
-        labelColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("label"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("description"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("address"));
-        sizeColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("size"));
-        valueColumn.setCellValueFactory(new PropertyValueFactory<Parameter, String>("value"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        labelColumn.setCellValueFactory(new PropertyValueFactory<>("label"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
 
         addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         sizeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -64,26 +63,17 @@ public class Controller implements Initializable {
 
         table.setItems(FXCollections.observableList(tableData));
         table.setEditable(true);
-        addressColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Parameter, String> parameterStringCellEditEvent) {
-                parameterStringCellEditEvent.getRowValue().setAddress(parameterStringCellEditEvent.getNewValue());
-                System.out.println(addressColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
-            }
+        addressColumn.setOnEditCommit(parameterStringCellEditEvent -> {
+            parameterStringCellEditEvent.getRowValue().setAddress(parameterStringCellEditEvent.getNewValue());
+            System.out.println(addressColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
         });
-        sizeColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Parameter, String> parameterStringCellEditEvent) {
-                parameterStringCellEditEvent.getRowValue().setSize(parameterStringCellEditEvent.getNewValue());
-                System.out.println(sizeColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
-            }
+        sizeColumn.setOnEditCommit(parameterStringCellEditEvent -> {
+            parameterStringCellEditEvent.getRowValue().setSize(parameterStringCellEditEvent.getNewValue());
+            System.out.println(sizeColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
         });
-        valueColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Parameter, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Parameter, String> parameterStringCellEditEvent) {
-                parameterStringCellEditEvent.getRowValue().setValue(parameterStringCellEditEvent.getNewValue());
-                System.out.println(valueColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
-            }
+        valueColumn.setOnEditCommit(parameterStringCellEditEvent -> {
+            parameterStringCellEditEvent.getRowValue().setValue(parameterStringCellEditEvent.getNewValue());
+            System.out.println(valueColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
         });
     }
 }

@@ -11,14 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FileExporterTest {
 
-    private Parameters parameters;
-
     @org.junit.jupiter.api.Test
     void test() {
 
         ObjectMapper mapper = new ObjectMapper();
+        Parameters parameters;
         try {
-            parameters = mapper.readValue(new File("target/parameters.json"), Parameters.class);
+            parameters = mapper.readValue(new File("configs/parameters.json"), Parameters.class);
             ParametersWrapper.getInstance().getParameterList().addAll(parameters.getParameterList());
         } catch (IOException e) {
             throw new RuntimeException(e);
