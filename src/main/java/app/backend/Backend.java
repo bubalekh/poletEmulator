@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Backend implements Runnable {
 
@@ -27,7 +26,7 @@ public class Backend implements Runnable {
             throw new RuntimeException(e);
         }
         try {
-            fileExporter.Test(parameters.getParameterList());
+            fileExporter.Export(parameters.getParameterList());
         } catch (IOException e) {
             e.printStackTrace();
         }
