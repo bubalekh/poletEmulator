@@ -51,7 +51,7 @@ public class FileExporter implements PackageInterface {
         stringBuilder.append(src);
         */
 
-        stringBuilder.append(16);
+        stringBuilder.append(endSym);
 
         try {
             fileWriter.append(stringBuilder.toString());
@@ -93,7 +93,7 @@ public class FileExporter implements PackageInterface {
             hexPow++;
         }
         stringBuilder.append("0".repeat(4 - (hexPow + 1)));
-        stringBuilder.append(Integer.toHexString(parameters.size()));
+        stringBuilder.append(Integer.toHexString(size));
     }
 
     private byte SrcProcessing(List<Byte> payload){
