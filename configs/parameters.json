@@ -3,8 +3,8 @@
     {
       "id": 0,
       "type": "BASIC",
-      "label": "test",
-      "description": "test",
+      "label": "test0",
+      "description": "test0",
       "address": 0,
       "size": 1,
       "value": 6
@@ -12,8 +12,8 @@
     {
       "id": 1,
       "type": "ADVANCED",
-      "label": "test",
-      "description": "test",
+      "label": "test1",
+      "description": "test1",
       "address": 1,
       "size": 1,
       "value": 16
@@ -21,8 +21,8 @@
     {
       "id": 2,
       "type": "ADVANCED",
-      "label": "test",
-      "description": "test",
+      "label": "test2",
+      "description": "test2",
       "address": 2,
       "size": 1,
       "value": 35
@@ -30,8 +30,8 @@
     {
       "id": 3,
       "type": "ADVANCED",
-      "label": "test",
-      "description": "test",
+      "label": "test3",
+      "description": "test3",
       "address": 3,
       "size": 2,
       "value": 15
@@ -39,8 +39,8 @@
     {
       "id": 4,
       "type": "ADVANCED",
-      "label": "test",
-      "description": "test",
+      "label": "test4",
+      "description": "test4",
       "address": 5,
       "size": 2,
       "value": 16
@@ -48,8 +48,8 @@
     {
       "id": 5,
       "type": "ADVANCED",
-      "label": "test",
-      "description": "test",
+      "label": "test5",
+      "description": "test5",
       "address": 7,
       "size": 2,
       "value": 384
@@ -57,8 +57,8 @@
     {
       "id": 6,
       "type": "ADVANCED",
-      "label": "test",
-      "description": "test",
+      "label": "test6",
+      "description": "test6",
       "address": 9,
       "size": 5,
       "value": 9834565
