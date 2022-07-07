@@ -63,23 +63,16 @@ public class FileExporter implements PackageInterface {
         return stringBuilder.toString();
     }
 
-    private void ValuesProcessing(List<Parameter> parameters){
+    private void ValuesProcessing(List<Parameter> parameters) {
         StringBuilder valuesStr = new StringBuilder();
         parameters.forEach(parameter -> {
-            if (Integer.parseInt(parameter.getSize()) <= 1) {
-                if (Integer.parseInt(parameter.getValue()) < 15) {
-                    valuesStr.append("0");
-                }
+            int hexPow = 0;
+            int tempValue = Integer.parseInt(parameter.getValue());
+            while(tempValue >= 16){
+                tempValue /= 16;
+                hexPow++;
             }
-            else {
-                int hexPow = 0;
-                int tempValue = Integer.parseInt(parameter.getValue());
-                while(tempValue >= 16){
-                    tempValue /= 16;
-                    hexPow++;
-                }
-                valuesStr.append("0".repeat(Integer.parseInt(parameter.getSize()) * 2 - (hexPow + 1)));
-            }
+            valuesStr.append("0".repeat(Integer.parseInt(parameter.getSize()) * 2 - (hexPow + 1)));
             valuesStr.append(Integer.toHexString(Integer.parseInt(parameter.getValue())));
         });
 
@@ -87,19 +80,19 @@ public class FileExporter implements PackageInterface {
 
     }
 
-    private void SizeProcessing(List<Parameter> parameters){
-        if (parameters.size() <= 15) {
-            stringBuilder.append("000");
+    private void SizeProcessing(List<Parameter> parameters) {
+        int size = 0;
+
+        for(int i = 0; i < parameters.size(); i++)
+            size += Integer.parseInt(parameters.get(i).getSize());
+
+        int hexPow = 0;
+        int tempValue = size;
+        while(tempValue >= 16) {
+            tempValue /= 16;
+            hexPow++;
         }
-        else {
-            int hexPow = 0;
-            int tempValue = parameters.size();
-            while(tempValue >= 16){
-                tempValue /= 16;
-                hexPow++;
-            }
-            stringBuilder.append("0".repeat(parameters.size() * 2 - (hexPow + 1)));
-        }
+        stringBuilder.append("0".repeat(4 - (hexPow + 1)));
         stringBuilder.append(Integer.toHexString(parameters.size()));
     }
 
@@ -113,14 +106,12 @@ public class FileExporter implements PackageInterface {
 
     }
 
-    private void AddressesProcessing(String address){
+    private void AddressesProcessing(String address) {
 
         if (Integer.parseInt(address) <= 15) {
             stringBuilder.append("0");
-            stringBuilder.append(Integer.toHexString(Integer.parseInt(address)));
         }
-        else
-            stringBuilder.append(Integer.toHexString(Integer.parseInt(address)));
+        stringBuilder.append(Integer.toHexString(Integer.parseInt(address)));
 
     }
 }
