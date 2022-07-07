@@ -55,14 +55,19 @@
       <bottom>
          <HBox prefHeight="59.0" prefWidth="526.0" BorderPane.alignment="CENTER">
             <children>
-               <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Старт" onAction="#start">
+               <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="217.0" text="Показать всю таблицу" onAction="#refreshTable" fx:id="refreshButton">
                   <HBox.margin>
                      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                   </HBox.margin>
                </Button>
-               <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Стоп" onAction="#stop">
+               <Button mnemonicParsing="false" onAction="#start" prefHeight="25.0" prefWidth="120.0" text="Старт" fx:id="startButton">
                   <HBox.margin>
-                     <Insets bottom="20.0" left="250.0" right="20.0" top="20.0" />
+                     <Insets bottom="20.0" left="150.0" right="20.0" top="20.0" />
+                  </HBox.margin>
+               </Button>
+               <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#stop" prefHeight="25.0" prefWidth="120.0" text="Стоп" fx:id="stopButton">
+                  <HBox.margin>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                   </HBox.margin>
                </Button>
             </children>

@@ -23,7 +23,9 @@ import static javafx.scene.control.Alert.AlertType.WARNING;
 
 public class Controller implements Initializable {
 
-    private List<Parameter> tableData = ParametersWrapper.getInstance().getParameterList();
+    @FXML
+    public Button refreshButton;
+    private final List<Parameter> tableData = ParametersWrapper.getInstance().getParameterList();
     @FXML
     public Button searchButton;
     @FXML
@@ -32,6 +34,10 @@ public class Controller implements Initializable {
     public ComboBox<String> fieldComboBox;
     @FXML
     public ComboBox<String> operationComboBox;
+    @FXML
+    public Button stopButton;
+    @FXML
+    public Button startButton;
     @FXML
     private TableView<Parameter> table;
 
@@ -103,6 +109,7 @@ public class Controller implements Initializable {
         operations.add("Содержит");
         operations.add("Не содержит");
         operationComboBox.setItems(FXCollections.observableList(operations));
+        stopButton.setDisable(true);
     }
 
     public void search(ActionEvent actionEvent) {
@@ -257,8 +264,16 @@ public class Controller implements Initializable {
     }
 
     public void start(ActionEvent actionEvent) {
+        stopButton.setDisable(false);
+        startButton.setDisable(true);
     }
 
     public void stop(ActionEvent actionEvent) {
+        startButton.setDisable(false);
+        stopButton.setDisable(true);
+    }
+
+    public void refreshTable(ActionEvent actionEvent) {
+        table.setItems(FXCollections.observableList(tableData));
     }
 }
