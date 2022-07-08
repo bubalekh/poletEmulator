@@ -4,10 +4,10 @@ import app.backend.models.Parameter;
 
 import java.util.List;
 
-public class SerialTransmitter implements PackageInterface {
+public class SerialTransmitter extends PackageInterface {
 
     @Override
-    public String Process(List<Parameter> parameters) {
+    public String process(List<Parameter> parameters) {
         return null;
     }
 }

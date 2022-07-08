@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class FileExporter implements PackageInterface {
+public class FileExporter extends PackageInterface {
 
     private final File file = new File("data.txt");
     private final FileWriter fileWriter = new FileWriter(file);
@@ -26,7 +26,10 @@ public class FileExporter implements PackageInterface {
     }
 
     @Override
-    public String Process(List<Parameter> parameters) {
+    public String process(List<Parameter> parameters) {
+
+        super.process(parameters);
+
         final int initSym = 0xD2;
         final int endSym = 16;
         final String destAdd = "1";

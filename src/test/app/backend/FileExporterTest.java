@@ -1,6 +1,5 @@
-package app.test.app.backend;
+package app.backend;
 
-import app.backend.FileExporter;
 import app.backend.models.Parameters;
 import app.backend.models.ParametersWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,12 +7,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FileExporterTest {
 
     @org.junit.jupiter.api.Test
-    void Export() {
+    void export() {
 
         ObjectMapper mapper = new ObjectMapper();
         Parameters parameters;
@@ -34,7 +33,7 @@ class FileExporterTest {
     }
 
     @org.junit.jupiter.api.Test
-    void Process() {
+    void process() {
 
         ObjectMapper mapper = new ObjectMapper();
         Parameters parameters;
@@ -47,7 +46,7 @@ class FileExporterTest {
 
         try {
             FileExporter fileExporter = new FileExporter();
-            String exportResultStr = fileExporter.Process(parameters.getParameterList());
+            String exportResultStr = fileExporter.process(parameters.getParameterList());
             //assertEquals("061023000f001001800000961045", exportResultStr);
         } catch (IOException e) {
             throw new RuntimeException(e);
