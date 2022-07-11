@@ -6,14 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -22,6 +20,8 @@ import static javafx.scene.control.Alert.AlertType.NONE;
 import static javafx.scene.control.Alert.AlertType.WARNING;
 
 public class Controller implements Initializable {
+
+    Alert alert = new Alert(WARNING);
 
     @FXML
     public Button refreshButton;
@@ -64,6 +64,8 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        alert.setTitle("Ошибка");
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         labelColumn.setCellValueFactory(new PropertyValueFactory<>("label"));
@@ -81,14 +83,17 @@ public class Controller implements Initializable {
         table.setItems(FXCollections.observableList(tableData));
         table.setEditable(true);
         addressColumn.setOnEditCommit(parameterStringCellEditEvent -> {
+            checkString(parameterStringCellEditEvent.getNewValue());
             parameterStringCellEditEvent.getRowValue().setAddress(parameterStringCellEditEvent.getNewValue());
             System.out.println(addressColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
         });
         sizeColumn.setOnEditCommit(parameterStringCellEditEvent -> {
+            checkString(parameterStringCellEditEvent.getNewValue());
             parameterStringCellEditEvent.getRowValue().setSize(parameterStringCellEditEvent.getNewValue());
             System.out.println(sizeColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
         });
         valueColumn.setOnEditCommit(parameterStringCellEditEvent -> {
+            checkString(parameterStringCellEditEvent.getNewValue());
             parameterStringCellEditEvent.getRowValue().setValue(parameterStringCellEditEvent.getNewValue());
             System.out.println(valueColumn.getCellData(parameterStringCellEditEvent.getRowValue()));
         });
@@ -115,10 +120,8 @@ public class Controller implements Initializable {
     public void search(ActionEvent actionEvent) {
 
         List<Parameter> filteredParameters = new ArrayList<>();
-        Alert alert = new Alert(WARNING);
 
-        if (searchTextField.getText().isEmpty()){
-            alert.setTitle("Ошибка");
+        if (searchTextField.getText().isEmpty()) {
             alert.setContentText("Не указано значение поиска");
             alert.show();
             return;
@@ -266,6 +269,7 @@ public class Controller implements Initializable {
     public void start(ActionEvent actionEvent) {
         stopButton.setDisable(false);
         startButton.setDisable(true);
+
     }
 
     public void stop(ActionEvent actionEvent) {
@@ -275,5 +279,17 @@ public class Controller implements Initializable {
 
     public void refreshTable(ActionEvent actionEvent) {
         table.setItems(FXCollections.observableList(tableData));
+    }
+
+    private void checkString(String s) {
+        byte[] buf = s.getBytes(StandardCharsets.UTF_8);
+        for (byte b : buf) {
+            if (!((b >= 48) && (b <= 57))) {
+                alert.setContentText("Неверно введенное значение!");
+                alert.show();
+                System.out.println(b);
+                throw new NumberFormatException();
+            }
+        }
     }
 }
