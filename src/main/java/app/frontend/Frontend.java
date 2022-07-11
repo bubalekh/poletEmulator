@@ -13,8 +13,9 @@ public class Frontend extends Application {
     public void start(Stage primaryStage) {
         try {
             primaryStage.setTitle("Test");
-            primaryStage.setMinHeight(450);
-            primaryStage.setMinWidth(545);
+            primaryStage.setMaximized(true);
+            primaryStage.setMinHeight(600);
+            primaryStage.setMinWidth(600);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/sample.fxml")));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
