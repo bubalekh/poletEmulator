@@ -3,77 +3,62 @@ package app.backend;
 import app.backend.models.Parameter;
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 public abstract class PackageInterface {
    private List<Byte> bl_package = new ArrayList<Byte>();
-    public String process(List<Parameter> parameters) {
+    public byte[] process(List<Parameter> parameters) {
         final byte initSym = (byte)0xD2;
         final byte endSym = 16;
-        final byte destAdd = 1;
+
+        final byte destAdd = 1;  //////!!!
         final byte srcAdd = 2;
-
-
 
         for(int i = 0; i < 2; i++){
             bl_package.add(initSym);
-            SizeProcessing(parameters);
+            sizeProcessing(parameters);
         }
 
         bl_package.add(destAdd);
         bl_package.add(srcAdd);
 
-        ValuesProcessing(parameters);
+        List<Byte> bl_values = new ArrayList<Byte>(valuesProcessing(parameters));
 
-        /* // SRC
-        List<Byte> bl_values = new ArrayList<>();
-        parameters.forEach(parameter -> {
-            bl_values.add(Byte.parseByte(parameter.getValue()));
-        });
-        byte src = SrcProcessing(bl_values);
-        stringBuilder.append(src);
-        */
+        bl_package.addAll(bl_values);
 
-       // stringBuilder.append(endSym);
+        byte crc = crcProcessing(bl_values);
+        bl_package.add(crc);
+        bl_package.add(endSym);
 
-        bl_package.forEach(parameter -> {
-            if((int)parameter >= 0)
-                System.out.println(Integer.toHexString((int)parameter));
-            else
-                System.out.println(Integer.toHexString(~(int)parameter));
-        });
-
-        int tempValue2 = 0;
-        int i2 = 5;
-        for(int i = 17; i < 22; i++){
-
-            tempValue2 |= (bl_package.get(i) << (i2 * 8));
-            i2--;
-        }
-
-      return "0"; //return stringBuilder.toString();
+        Byte[] bytes = bl_package.toArray(new Byte[bl_package.size()]);
+        return ArrayUtils.toPrimitive(bytes);
     }
 
-    private void ValuesProcessing(List<Parameter> parameters) {
-        StringBuilder valuesStr = new StringBuilder();
+    private List<Byte> valuesProcessing(List<Parameter> parameters) {
+        List<Byte> bl_value = new ArrayList<Byte>();
         parameters.forEach(parameter -> {
             byte[] tempArray = new byte[Integer.parseInt(parameter.getSize())];
-            int tempValue = Integer.parseInt(parameter.getValue());
+            BigInteger Value = new BigInteger(parameter.getValue());
             for(int i = 0; i < Integer.parseInt(parameter.getSize()); i++) {
-                tempArray[Integer.parseInt(parameter.getSize()) - (i + 1)] = (byte) ((tempValue >> ((Integer.parseInt(parameter.getSize()) - 1 - i) * 8)) & 0xFF);
+                BigInteger tempValue = Value.shiftRight( (Integer.parseInt(parameter.getSize()) - (1 + i)) * 8);
+                tempValue = tempValue.and(BigInteger.valueOf(0xFF));
+                tempArray[i] = tempValue.byteValue();
+
+                //String s1 = String.format("%8s", Integer.toBinaryString(tempArray[i] & 0xFF)).replace(' ', '0');
+                //System.out.println(s1); // 10000001
             }
 
             List<Byte> tempList = Arrays.asList(ArrayUtils.toObject(tempArray));
-            bl_package.addAll( tempList);
+            bl_value.addAll(tempList);
         });
 
-      //  stringBuilder.append(valuesStr.toString());
+        return bl_value;
 
     }
 
-    private void SizeProcessing(List<Parameter> parameters) {
+    private void sizeProcessing(List<Parameter> parameters) {
         int size = 0;
 
         for(int i = 0; i < parameters.size(); i++)
@@ -86,26 +71,20 @@ public abstract class PackageInterface {
 
         List<Byte> tempList = Arrays.asList(ArrayUtils.toObject(tempArray));
 
-        bl_package.addAll( tempList);
+        bl_package.addAll(tempList);
 
     }
 
-    private byte SrcProcessing(List<Byte> payload){
-
+    private static byte crcProcessing(List<Byte> payload) {
         byte pdun = 0;
         for (int i = 8; i < payload.size(); ++i) {
             pdun = (byte)(pdun + payload.get(i));
         }
         return (byte)Math.abs(~pdun + 1);
-
     }
 
-    private void AddressesProcessing(String address) {
+    private void addressesProcessing(String address) {
 
-        if (Integer.parseInt(address) <= 15) {
-        //    stringBuilder.append("0");
-        }
-     //   stringBuilder.append(Integer.toHexString(Integer.parseInt(address)));
 
     }
 }
