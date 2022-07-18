@@ -25,7 +25,6 @@ public abstract class PackageInterface {
         bl_package.add(srcAdd);
 
         List<Byte> bl_values = new ArrayList<Byte>(valuesProcessing(parameters));
-
         bl_package.addAll(bl_values);
 
         byte crc = crcProcessing(bl_values);
@@ -46,8 +45,6 @@ public abstract class PackageInterface {
                 tempValue = tempValue.and(BigInteger.valueOf(0xFF));
                 tempArray[i] = tempValue.byteValue();
 
-                //String s1 = String.format("%8s", Integer.toBinaryString(tempArray[i] & 0xFF)).replace(' ', '0');
-                //System.out.println(s1); // 10000001
             }
 
             List<Byte> tempList = Arrays.asList(ArrayUtils.toObject(tempArray));

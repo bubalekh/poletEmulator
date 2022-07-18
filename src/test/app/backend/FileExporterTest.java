@@ -51,13 +51,6 @@ class FileExporterTest {
             for(byte b: exportResult)
                 sb.append(String.format("%02x", b));
             System.out.println("Exported package is: " + sb.toString());
-            //assertEquals("d2000ed2000e0102061023000f0010018000009610456b10", sb);
-
-            //06 10 23  00 0f  00 10  01 80  00 00 96 10 45 - string values в файле
-            //6  10 23  0  f   0  10   1 7f  0  0  69 10 45 - в байтах
-            //7f в двоичной = 10000000 = 80
-            //69 в двоичной = 10010110 = 96
-
 
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -26,7 +26,7 @@ public class Backend implements Runnable {
             throw new RuntimeException(e);
         }
         try {
-            fileExporter.Export(parameters.getParameterList());
+            fileExporter.export(parameters.getParameterList());
         } catch (IOException e) {
             e.printStackTrace();
         }
