@@ -6,12 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
-public class Backend implements Runnable {
+public class Backend extends Thread {
 
-    private Parameters parameters;
     private final FileExporter fileExporter = new FileExporter();
+    private Parameters parameters;
 
     public Backend() throws IOException {
     }
@@ -31,5 +30,16 @@ public class Backend implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public synchronized void pauseBackend() {
+        try {
+            this.wait();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public synchronized void resumeBackend() {
+        this.notifyAll();
     }
 }
