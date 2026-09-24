@@ -13,7 +13,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.frontend.controllers.Controller">
     <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <top>
-            <HBox prefHeight="56.0" prefWidth="526.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="526.0" BorderPane.alignment="CENTER">
                 <ComboBox fx:id="fieldComboBox" prefWidth="150.0" promptText="Поле">
                     <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -53,25 +53,25 @@
             </TableView>
         </center>
       <bottom>
-         <HBox prefHeight="59.0" prefWidth="526.0" BorderPane.alignment="CENTER">
+         <AnchorPane BorderPane.alignment="CENTER">
             <children>
-               <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="217.0" text="Показать всю таблицу" onAction="#refreshTable" fx:id="refreshButton">
-                  <HBox.margin>
-                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                  </HBox.margin>
-               </Button>
-               <Button mnemonicParsing="false" onAction="#start" prefHeight="25.0" prefWidth="120.0" text="Старт" fx:id="startButton">
-                  <HBox.margin>
-                     <Insets bottom="20.0" left="150.0" right="20.0" top="20.0" />
-                  </HBox.margin>
-               </Button>
-               <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#stop" prefHeight="25.0" prefWidth="120.0" text="Стоп" fx:id="stopButton">
-                  <HBox.margin>
-                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                  </HBox.margin>
-               </Button>
+               <HBox alignment="BASELINE_RIGHT" prefHeight="59.0" prefWidth="526.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <children>
+                     <Button fx:id="startButton" mnemonicParsing="false" onAction="#start" prefHeight="25.0" prefWidth="80.0" text="Старт">
+                        <HBox.margin>
+                           <Insets bottom="20.0" left="150.0" right="20.0" top="20.0" />
+                        </HBox.margin>
+                     </Button>
+                     <Button fx:id="stopButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#stop" prefHeight="25.0" prefWidth="80.0" text="Стоп">
+                        <HBox.margin>
+                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        </HBox.margin>
+                     </Button>
+                  </children>
+               </HBox>
+               <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshTable" text="Показать всю таблицу" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
             </children>
-         </HBox>
+         </AnchorPane>
       </bottom>
     </BorderPane>
 </AnchorPane>
